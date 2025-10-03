@@ -6,7 +6,7 @@ public class Main {
     static Scanner in = new Scanner(System.in);
     public static void main(String[] args) {
         if (args.length == 2) {
-            basicMode(args[1],args[2]);
+            basicMode(args[0],args[1]);
 
         }else{
             interactiveMode();
@@ -27,7 +27,7 @@ public class Main {
         }
         sb.append(";");
         System.out.print(sb);
-        System.out.println(res.curStage==7 ?"NEG":"POS");
+        System.out.println(res.curStage>0 ?"NEG":"POS");
     }
 
     private static void interactiveMode() {
@@ -91,7 +91,7 @@ public class Main {
         String word = selector.getWord();
         System.out.println("Начинаем игру!");
         System.out.println("Слово загадано! Количество букв: " + word.length());
-        Game game = new Game(word, player);
+        Game game = new Game(word, player,selector.getDifficulty());
         int res;
         while(true){
             res = game.play();
@@ -102,7 +102,7 @@ public class Main {
                 }
             }else if(res == 0){
                 if(game.result.curStage == 7){
-                    System.out.println("Вы выиграли");
+                    System.out.println("Вы выиграли!");
                     break;
                 }
             }else{

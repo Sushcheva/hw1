@@ -6,6 +6,9 @@ public class WordSelector {
     private boolean randomCategory = false;
     private boolean randomDifficulty = false;
 
+    public Difficulty getDifficulty(){
+        return  this.difficulty;
+    }
     private WordSelector() {}
 
     public static WordSelector builder() {

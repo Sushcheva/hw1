@@ -11,7 +11,16 @@ public class Game {
     private Set<Cell> guesses;
     private Set<Cell> mistakes;
 
-    public Game(String word, Player player) {
+    public Game(String word, Player player, Difficulty hardness) {
+        switch (hardness){
+            case Difficulty.HARD:
+                result = new Result(4);
+            case Difficulty.MEDIUM:
+                result = new Result(5);
+            case Difficulty.EASY:
+                result = new Result(7);
+
+        }
         this.hiddenWord = new HiddenWord(word);
         this.player = player;
         this.guesses = new HashSet<>();
@@ -23,21 +32,18 @@ public class Game {
         System.out.println(hiddenWord);
         StringBuilder sb = new StringBuilder("Угаданные буквы:");
         for (Cell symbol : guesses) {
-            sb.append(symbol).append(" ");
+            sb.append(symbol.getSymbol()).append(" ");
         }
         System.out.println(sb);
         sb = new StringBuilder("Буквы, которых нет в слове:");
         for (Cell symbol : mistakes) {
-            sb.append(symbol).append(" ");
+            sb.append(symbol.getSymbol()).append(" ");
         }
         System.out.println(sb);
         while(true){
-            System.out.println("Введите букву русского алфавита");
             String move = player.move();
-            System.out.println(move);
             while (guesses.contains(Cell.fromString(move)[0]) || mistakes.contains(Cell.fromString(move)[0])){
                 System.out.println("Эту буква была уже введена, введите другую");
-                System.out.println(move);
                 move = player.move();
             }
             res = hiddenWord.makeMove(move);
@@ -52,7 +58,6 @@ public class Game {
         }
 
         if (res == Ends.SUCCESS) {
-            System.out.println(hiddenWord);
             return 1;
         } else if (res == Ends.LOSE) {
             result.updateResult();

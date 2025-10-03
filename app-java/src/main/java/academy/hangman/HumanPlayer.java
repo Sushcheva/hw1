@@ -15,13 +15,13 @@ public class HumanPlayer implements Player {
 
     public String move() {
         while (true) {
-            out.println("Введи свою букву");
             String a;
+            System.out.println("Введите букву русского алфавита");
             while(true){
                 try{
                     a = in.nextLine();
                     if(a.length() !=1){
-                        System.err.println("Введи букву");
+                        System.err.println("Нужно");
                         continue;
                     }
                     return a.toLowerCase();
